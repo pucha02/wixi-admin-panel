@@ -1,0 +1,37 @@
+/* AdminTemplate.css */
+.admin-template {
+    padding: 20px;
+    background-color: #f8f9fa; /* Светлый фон */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.admin-template h1 {
+    font-size: 32px;
+    color: #343a40; /* Темный текст */
+    margin-bottom: 20px; /* Отступ снизу */
+}
+
+.admin-template h2 {
+    font-size: 24px;
+    color: #495057; /* Темный текст */
+    margin-top: 20px; /* Отступ сверху */
+    margin-bottom: 10px; /* Отступ снизу */
+}
+
+.admin-template > div {
+    margin-bottom: 40px; /* Отступ между секциями */
+}
+
+.admin-template .category-section,
+.admin-template .product-section {
+    background-color: #ffffff; /* Белый фон для секций */
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.admin-template .category-list,
+.admin-template .product-list {
+    margin-top: 15px; /* Отступ сверху */
+}

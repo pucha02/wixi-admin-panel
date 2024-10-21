@@ -37,7 +37,7 @@ export const updateProduct = async (req, res) => {
 export const deleteProduct = async (req, res) => {
     try {
         await Product.findByIdAndDelete(req.params.id);
-        res.status(204).json({ message: 'Товар удален' });
+        res.status(200).json({ message: 'Товар видалено' });  // Статус 200 и возвращаем JSON с сообщением
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

@@ -1,0 +1,10 @@
+.size-option {
+    padding: 5px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.size-option.selected {
+    background-color: #b0e0e6; /* Выделение выбранного размера */
+    border-color: #000;
+}

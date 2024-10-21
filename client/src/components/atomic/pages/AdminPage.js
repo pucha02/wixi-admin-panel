@@ -1,22 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import AdminTemplate from '../templates/AdminTemplate';
-import { fetchCategories, fetchProducts, createCategory, createProduct, updateCategory, updateProduct } from '../../../services/api';
+import CategoryTemplate from '../templates/AdminTemplate/CategoryTemplate';
+import ProductTemplate from '../templates/AdminTemplate/ProductTemplate';
+import SizeTemplate from '../templates/AdminTemplate/SizeTemplate';
+import { handleDataOperation } from '../../../utils/handleDataOperation';
+import { fetchCategories, fetchProducts, fetchSizes } from '../../../services/api';
+import './AdminPage.css'; // Импортируем стили
 
 const AdminPage = () => {
     const [categories, setCategories] = useState([]);
     const [products, setProducts] = useState([]);
+    const [sizes, setSizes] = useState([]); 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [productToEdit, setProductToEdit] = useState(null);
-    const [categoryToEdit, setCategoryToEdit] = useState(null); // Состояние для редактируемой категории
+    const [categoryToEdit, setCategoryToEdit] = useState(null);
+    const [sizeToEdit, setSizeToEdit] = useState(null);  
+
+    const [activeTab, setActiveTab] = useState('categories'); // Состояние для активного таба
 
     useEffect(() => {
         const loadData = async () => {
             try {
                 const fetchedCategories = await fetchCategories();
                 const fetchedProducts = await fetchProducts();
+                const fetchedSizes = await fetchSizes(); 
                 setCategories(fetchedCategories);
                 setProducts(fetchedProducts);
+                setSizes(fetchedSizes); 
             } catch (err) {
                 setError('Failed to load data.');
             } finally {
@@ -26,53 +36,28 @@ const AdminPage = () => {
         loadData();
     }, []);
 
-    const handleCreateCategory = async (data) => {
-        try {
-            const newCategory = await createCategory(data);
-            setCategories([...categories, newCategory]);
-            setCategoryToEdit(null); // Сбросить редактируемую категорию после создания
-        } catch (err) {
-            setError('Failed to create category.');
-        }
-    };
+    const handleCreateCategory = (data) => handleDataOperation('create', 'category', data, null, setCategories, setProducts, setSizes, categories, products, sizes, setError);
+    const handleEditCategory = (id, updatedData) => handleDataOperation('update', 'category', updatedData, id, setCategories, setProducts, setSizes, categories, products, sizes, setError);
+    const handleDeleteCategory = (id) => handleDataOperation('delete', 'category', null, id, setCategories, setProducts, setSizes, categories, products, sizes, setError);
 
-    const handleEditCategory = async (id, updatedData) => {
-        try {
-            const updatedCategory = await updateCategory(id, updatedData);
-            setCategories(categories.map(cat => (cat._id === id ? updatedCategory : cat)));
-            setCategoryToEdit(null); // Сбросить редактируемую категорию после обновления
-        } catch (err) {
-            setError('Failed to update category.');
-        }
-    };
+    const handleCreateSize = (data) => handleDataOperation('create', 'size', data, null, setCategories, setProducts, setSizes, categories, products, sizes, setError);
+    const handleEditSize = (id, updatedData) => handleDataOperation('update', 'size', updatedData, id, setCategories, setProducts, setSizes, categories, products, sizes, setError);
+    const handleDeleteSize = (id) => handleDataOperation('delete', 'size', null, id, setCategories, setProducts, setSizes, categories, products, sizes, setError);
 
-    const handleCreateProduct = async (data) => {
-        try {
-            const newProduct = await createProduct(data);
-            setProducts([...products, newProduct]);
-            setProductToEdit(null); // Сбросить редактируемый продукт после создания
-        } catch (err) {
-            setError('Failed to create product.');
-        }
-    };
-
-    const handleEditProduct = async (id, updatedData) => {
-        try {
-            const updatedProduct = await updateProduct(id, updatedData);
-            setProducts(products.map(prod => (prod._id === id ? updatedProduct : prod)));
-            setProductToEdit(null); // Сбросить редактируемый продукт после обновления
-        } catch (err) {
-            setError('Failed to update product.');
-        }
-    };
+    const handleCreateProduct = (data) => handleDataOperation('create', 'product', data, null, setCategories, setProducts, setSizes, categories, products, sizes, setError);
+    const handleEditProduct = (id, updatedData) => handleDataOperation('update', 'product', updatedData, id, setCategories, setProducts, setSizes, categories, products, sizes, setError);
+    const handleDeleteProduct = (id) => handleDataOperation('delete', 'product', null, id, setCategories, setProducts, setSizes, categories, products, sizes, setError);
 
     const handleEditCategoryInitiate = (category) => {
         setCategoryToEdit(category);
     };
 
-    // Обработчик для редактирования продукта
     const handleEditProductInitiate = (product) => {
         setProductToEdit(product);
+    };
+
+    const handleEditSizeInitiate = (size) => { 
+        setSizeToEdit(size);
     };
 
     if (loading) {
@@ -84,18 +69,64 @@ const AdminPage = () => {
     }
 
     return (
-        <AdminTemplate
-            categories={categories}
-            products={products}
-            onCreateCategory={handleCreateCategory}
-            onEditCategory={handleEditCategory}
-            onCreateProduct={handleCreateProduct}
-            onEditProduct={handleEditProduct}
-            productToEdit={productToEdit}
-            categoryToEdit={categoryToEdit} // Передаем редактируемую категорию
-            onEditProductInitiate={handleEditProductInitiate}
-            onEditCategoryInitiate={handleEditCategoryInitiate} // Передаем функцию для инициации редактирования категории
-        />
+        <div className="admin-page">
+            <div className="sidebar">
+                <ul className="tab-list">
+                    <li 
+                        className={activeTab === 'categories' ? 'active' : ''} 
+                        onClick={() => setActiveTab('categories')}
+                    >
+                        Категорії
+                    </li>
+                    <li 
+                        className={activeTab === 'products' ? 'active' : ''} 
+                        onClick={() => setActiveTab('products')}
+                    >
+                        Товари
+                    </li>
+                    <li 
+                        className={activeTab === 'sizes' ? 'active' : ''} 
+                        onClick={() => setActiveTab('sizes')}
+                    >
+                        Розміри
+                    </li>
+                </ul>
+            </div>
+            <div className="content">
+                {activeTab === 'categories' && (
+                    <CategoryTemplate
+                        categories={categories}
+                        onCreateCategory={handleCreateCategory}
+                        onEditCategory={handleEditCategory}
+                        onDeleteCategory={handleDeleteCategory}
+                        onEditCategoryInitiate={handleEditCategoryInitiate}
+                        categoryToEdit={categoryToEdit}
+                    />
+                )}
+                {activeTab === 'products' && (
+                    <ProductTemplate
+                        sizes={sizes}
+                        categories={categories}
+                        products={products}
+                        onCreateProduct={handleCreateProduct}
+                        onEditProduct={handleEditProduct}
+                        onDeleteProduct={handleDeleteProduct}
+                        productToEdit={productToEdit}
+                        onEditProductInitiate={handleEditProductInitiate}
+                    />
+                )}
+                {activeTab === 'sizes' && (
+                    <SizeTemplate
+                        sizes={sizes}         
+                        onCreateSize={handleCreateSize}  
+                        onEditSize={handleEditSize}
+                        onDeleteSize={handleDeleteSize}
+                        sizeToEdit={sizeToEdit} 
+                        onEditSizeInitiate={handleEditSizeInitiate}
+                    />
+                )}
+            </div>
+        </div>
     );
 };
 

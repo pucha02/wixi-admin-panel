@@ -1,0 +1,23 @@
+/* CategoryForm.css */
+.category-form {
+    background-color: #f8f9fa; /* Светлый фон */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.category-form h2 {
+    margin-bottom: 15px;
+    font-size: 24px;
+    color: #343a40; /* Темный текст */
+}
+
+.category-form .input {
+    margin-bottom: 15px; /* Отступ между полями */
+}
+
+.category-form .button {
+    width: 100%; /* Кнопка на всю ширину */
+    font-weight: bold; /* Жирный текст для кнопки */
+}

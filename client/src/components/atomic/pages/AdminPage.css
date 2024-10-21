@@ -1,0 +1,48 @@
+.admin-page {
+    display: flex;
+    min-height: 100vh; 
+    align-items: stretch; 
+}
+
+.sidebar {
+    width: 200px;
+    background-color: #f4f4f4;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0; 
+}
+
+.tab-list {
+    position: fixed;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.tab-list li {
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-align: center;
+    width: 175px;
+}
+
+.tab-list li:hover {
+    background-color: #e0e0e0;
+}
+
+.tab-list li.active {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
+
+.content {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+}
