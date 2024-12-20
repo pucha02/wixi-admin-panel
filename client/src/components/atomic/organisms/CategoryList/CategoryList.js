@@ -9,9 +9,11 @@ const CategoryList = ({ categories, onEdit, onDelete }) => {
         <div className="category-list">
             <h2>Список категорій</h2>
             <ul>
+                
                 {categories.map((category) => (
                     <li key={category._id}>
                         {category.title}
+                        {console.log(category)}
                         <SubmitFormButtonAtom label="Редагувати" onClick={() => onEdit(category)} />
                         <DeleteElementButtonAtom onClick={() => onDelete(category._id)} />
                     </li>

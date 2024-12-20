@@ -5,7 +5,7 @@ export const createProduct = async (req, res) => {
     console.log(req.body)
     try {
         const product = new Product(req.body);
-        console.log(product)
+        
         await product.save();
         res.status(201).json(product);
     } catch (error) {
@@ -16,7 +16,8 @@ export const createProduct = async (req, res) => {
 // Получение всех товаров
 export const getProducts = async (req, res) => {
     try {
-        const products = await Product.find().populate('category');
+        const products = await Product.find()
+        
         res.status(200).json(products);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -36,6 +37,7 @@ export const updateProduct = async (req, res) => {
 // Удаление товара
 export const deleteProduct = async (req, res) => {
     try {
+        console.log(req.params)
         await Product.findByIdAndDelete(req.params.id);
         res.status(200).json({ message: 'Товар видалено' });  // Статус 200 и возвращаем JSON с сообщением
     } catch (error) {

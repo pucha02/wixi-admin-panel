@@ -6,7 +6,6 @@ import './CategoryForm.css';
 const CategoryForm = ({ onSubmit, categoryToEdit }) => {
     const [title, setTitle] = useState('');
 
-    // Заполняем поля формы, если переданы данные для редактирования
     useEffect(() => {
         if (categoryToEdit) {
             setTitle(categoryToEdit.title);

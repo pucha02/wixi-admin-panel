@@ -22,6 +22,7 @@ const CategoryTemplate = ({
                     onSubmit={categoryToEdit ? (data) => onEditCategory(categoryToEdit._id, data) : onCreateCategory} 
                     categoryToEdit={categoryToEdit}
                 />
+                
                 <CategoryList 
                     categories={categories} 
                     onEdit={onEditCategoryInitiate} 

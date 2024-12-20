@@ -24,6 +24,7 @@ export const getCategories = async (req, res) => {
 // Обновление категории
 export const updateCategory = async (req, res) => {
     try {
+        console.log(req.params)
         const category = await Category.findByIdAndUpdate(req.params.id, req.body, { new: true });
         res.status(200).json(category);
     } catch (error) {
@@ -34,6 +35,7 @@ export const updateCategory = async (req, res) => {
 // Удаление категории
 export const deleteCategory = async (req, res) => {
     try {
+        
         await Category.findByIdAndDelete(req.params.id);
         res.status(200).json({ message: 'Категорію видалено' });
     } catch (error) {

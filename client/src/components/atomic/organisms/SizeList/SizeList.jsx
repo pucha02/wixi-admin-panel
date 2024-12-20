@@ -7,7 +7,7 @@ import './SizeList.css';
 const SizeList = ({ sizes, onEdit, onDelete }) => {
     return (
         <div className="category-list">
-            <h2>Список категорій</h2>
+            <h2>Список розмірів</h2>
             <ul>
                 {sizes.map((size) => (
                     <li key={size._id}>

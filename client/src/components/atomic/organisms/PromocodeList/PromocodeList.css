@@ -1,0 +1,36 @@
+
+/* CategoryList.css */
+.category-list {
+    background-color: #ffffff; /* Белый фон */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px; /* Отступ снизу */
+}
+
+.category-list h2 {
+    margin-bottom: 15px;
+    font-size: 24px;
+    color: #343a40; /* Темный текст */
+}
+
+.category-list ul {
+    list-style-type: none; /* Убираем маркеры списка */
+    padding: 0; /* Убираем отступы */
+}
+
+.category-list li {
+    display: flex; /* Для выравнивания текста и кнопки */
+    justify-content: space-between; /* Распределение пространства между элементами */
+    align-items: center; /* Выравнивание по центру */
+    padding: 10px 0; /* Вертикальные отступы между элементами списка */
+    border-bottom: 1px solid #e9ecef; /* Нижняя граница между элементами */
+}
+
+.category-list li:last-child {
+    border-bottom: none; /* Убираем границу у последнего элемента */
+}
+
+.category-list .button {
+    margin-left: 10px; /* Отступ между текстом и кнопкой */
+}

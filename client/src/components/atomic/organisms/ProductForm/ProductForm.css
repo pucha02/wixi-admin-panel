@@ -40,3 +40,39 @@
 .product-form h4 {
     margin: 15px 0 5px; /* Отступы для заголовков */
 }
+
+
+
+.related-products {
+    margin-top: 20px;
+}
+
+.related-products label {
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.related-products-checkboxes {
+    max-height: 300px; /* Ограничиваем высоту контейнера */
+    overflow-y: auto; /* Добавляем вертикальную прокрутку */
+    border: 1px solid #ccc; /* Граница для визуального отделения */
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9; /* Светлый фон */
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.checkbox-item label {
+    margin-left: 8px;
+    font-size: 14px;
+}
+
+.checkbox-item input {
+    cursor: pointer;
+}

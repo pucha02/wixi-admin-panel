@@ -24,7 +24,7 @@ export const getSizes = async (req, res) => {
 // Обновление категории
 export const updateSize = async (req, res) => {
     try {
-        const size = await Size.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const size = await Size.findByIdAndUpdate(req.params._id, req.body, { new: true });
         res.status(200).json(size);
     } catch (error) {
         res.status(400).json({ error: error.message });
@@ -34,7 +34,7 @@ export const updateSize = async (req, res) => {
 // Удаление категории
 export const deleteSize = async (req, res) => {
     try {
-        await Size.findByIdAndDelete(req.params.id);
+        await Size.findByIdAndDelete(req.params._id);
         res.status(200).json({ message: 'Розмір видалено' });
     } catch (error) {
         res.status(500).json({ error: error.message });

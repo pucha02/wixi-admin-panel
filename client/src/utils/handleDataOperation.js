@@ -1,16 +1,19 @@
 import { 
     createCategory, 
     createProduct, 
-    createSize,  // Добавляем операцию создания размеров
+    createSize, 
+    createData,
     updateCategory, 
     updateProduct, 
-    updateSize,   // Добавляем операцию обновления размеров
+    updateSize, 
+    updateData, 
     deleteCategory,  
     deleteProduct, 
-    deleteSize    // Добавляем операцию удаления размеров
+    deleteSize,
+    deleteData
 } from '../services/api';
 
-export const handleDataOperation = async (operation, type, data, id = null, setCategories, setProducts, setSizes, categories, products, sizes, setError) => {
+export const handleDataOperation = async (operation, type, data, id = null, setCategories, setProducts, setSizes, setPromocodes, categories, products, sizes, promocodes, setError) => {
     try {
         let result;
 
@@ -19,39 +22,49 @@ export const handleDataOperation = async (operation, type, data, id = null, setC
 
         if (operation === 'create') {
             if (type === 'category') {
-                result = await createCategory(data);
+                result = await createData(data, '/categories');
             } else if (type === 'product') {
-                result = await createProduct(data);
+                result = await createData(data, '/products');
             } else if (type === 'size') {  // Добавляем операцию создания размера
-                result = await createSize(data);
+                result = await createData(data, '/sizes');
+            } else if (type === 'promocode') {  // Добавляем операцию создания размера
+                result = await createData(data, 'promocodes');
             }
         } else if (operation === 'update') {
             if (type === 'category') {
-                result = await updateCategory(id, data);
+                result = await updateData(id, data, '/categories');
             } else if (type === 'product') {
-                result = await updateProduct(id, data);
+                result = await updateData(id, data, '/products');
             } else if (type === 'size') {  // Добавляем операцию обновления размера
-                result = await updateSize(id, data);
+                result = await updateData(id, data, '/sizes');
+            } else if (type === 'promocode') {  // Добавляем операцию обновления размера
+                result = await updateData(id, data, 'promocodes');
             }
         } else if (operation === 'delete') {
             if (type === 'category') {
-                const response = await deleteCategory(id);
+                const response = await deleteData(id, '/categories');
                 if (response.status === 200) {
                     console.log('Category deleted');
                 }
                 setCategories(categories.filter(cat => cat._id !== id));
             } else if (type === 'product') {
-                const response = await deleteProduct(id);
+                const response = await deleteData(id, '/products');
                 if (response.status === 200) {
                     console.log('Product deleted');
                 }
                 setProducts(products.filter(prod => prod._id !== id));
             } else if (type === 'size') {  // Добавляем операцию удаления размера
-                const response = await deleteSize(id);
+                const response = await deleteData(id, '/sizes');
                 if (response.status === 200) {
                     console.log('Size deleted');
                 }
                 setSizes(sizes.filter(size => size._id !== id));
+            } else if (type === 'promocode') {  // Добавляем операцию удаления размера
+                const response = await deleteData(id, 'promocodes');
+                if (response.status === 200) {
+                    console.log('promocode deleted');
+                }
+                setPromocodes(promocodes.filter(size => size._id !== id));
             }
             setError(null);  // Успешное удаление, ошибка сбрасывается
             return;  // Завершаем выполнение после удаления
@@ -81,6 +94,14 @@ export const handleDataOperation = async (operation, type, data, id = null, setC
                 setSizes([...sizes, result]);
             } else if (operation === 'update') {
                 setSizes(sizes.map(size => (size._id === id ? result : size)));
+            }
+        } 
+
+        else if (type === 'promocode') {  // Обработка состояния для размеров
+            if (operation === 'create') {
+                setPromocodes([...promocodes, result]);
+            } else if (operation === 'update') {
+                setPromocodes(promocodes.map(size => (size._id === id ? result : size)));
             }
         }
 

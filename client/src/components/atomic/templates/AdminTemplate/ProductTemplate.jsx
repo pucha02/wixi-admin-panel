@@ -24,6 +24,7 @@ const ProductTemplate = ({
                     sizes={sizes}
                     productToEdit={productToEdit}
                     onSubmit={productToEdit ? (data) => onEditProduct(productToEdit._id, data) : onCreateProduct}
+                    products={products}
                 />
                 <ProductList 
                     products={products} 
